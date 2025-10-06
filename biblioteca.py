@@ -1,22 +1,65 @@
+import csv
+
 def carica_da_file(file_path):
     """Carica i libri dal file"""
-    # TODO
-
+    biblioteca = []
+    with open(file_path, "r", encoding="utf-8") as file:
+        reader =csv.reader(file,delimiter=",")
+        indicesezione= 0
+        numerosezioni= 0
+        biblioteca= [[ for _ in range(numerosezioni)]
+        for row in reader:
+            titolo = row[0]
+            autore = row[1]
+            anno = row[2]
+            pagine = row[3]
+            sezione = row[4]
+            biblioteca.append([titolo,autore,int(anno),int(pagine),int(sezione)])
+        return biblioteca
 
 def aggiungi_libro(biblioteca, titolo, autore, anno, pagine, sezione, file_path):
     """Aggiunge un libro nella biblioteca"""
-    # TODO
+    indicesezione= sezione -1
+    numerosezioni= len(biblioteca)
+    libro = [
+    titolo.strip(),
+    autore.strip(),
+    int(anno),
+    int(pagine),
+    int(sezione),]
+    biblioteca[indicesezione].append(libro)
+    try:
+        with open(file_path, "a", newline=' ',encoding="utf-8") as file:
+            writer = csv.writer(file)
+            rigadascrivere=[
+                libro[0],
+                libro[1],
+                str(libro[2]),
+                str(libro[3]),
+                str(libro[4]),
+            ]
+            writer.writerow(rigadascrivere)
 
+if 0 <= indicesezione < numerosezioni:
+    libro = [titolo, autore, anno, pagine, sezione]
+    biblioteca[indicesezione].append(libro)
 
 def cerca_libro(biblioteca, titolo):
     """Cerca un libro nella biblioteca dato il titolo"""
-    # TODO
+    titolocercato=titolocercato.strip().lower()
+    if libro(titolo).strip().lower()==titolocercato:
+    titolo, autore, anno, pagine, sezione = libro
+    return f"{titolo}, {autore}, {anno}, {pagine}, {sezione}"
 
 
 def elenco_libri_sezione_per_titolo(biblioteca, sezione):
     """Ordina i titoli di una data sezione della biblioteca in ordine alfabetico"""
-    # TODO
-
+    indicesezione= sezione -1
+    if not (0 <= indicesezione < len(biblioteca)):
+       return False
+    sezione= biblioteca[indicesezione]
+    titoli = [libro[titolo] for titolo in sezione]
+    return titoli
 
 def main():
     biblioteca = []
